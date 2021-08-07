@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class CalcMain {
     public static void main(String[] args) {
+            Calculator calculator = new Calculator();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Input: ");
@@ -13,7 +14,7 @@ public class CalcMain {
 
                 break;
             }
-            System.out.println("равно"+line);
+            System.out.println("равно"+calculator.getResult(line));
         }
         scanner.close();
 
