@@ -8,11 +8,12 @@ public class CalcMain {
         while (true) {
             System.out.println("Input: ");
             String line = scanner.nextLine();
-            System.out.println("равно"+line);
+
             if (line.equals("q")) {
 
                 break;
             }
+            System.out.println("равно"+line);
         }
         scanner.close();
 
