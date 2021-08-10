@@ -4,18 +4,26 @@ import java.util.Scanner;
 
 public class CalcMain {
     public static void main(String[] args) {
-            Calculator calculator = new Calculator();
+        Calculator calculator = new Calculator();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Input: ");
-            String line = scanner.nextLine();
+            try {
 
-            if (line.equals("q")) {
+                System.out.println("Input: ");
+                String line = scanner.nextLine();
 
-                break;
+                if (line.equals("q")) {
+
+                    break;
+                }
+                System.out.println("Output:" + calculator.getResult(line));
+
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
-            System.out.println("равно"+calculator.getResult(line));
+
         }
+
         scanner.close();
 
     }
