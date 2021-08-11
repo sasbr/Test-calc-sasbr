@@ -20,6 +20,7 @@ public class CalcMain {
 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
+                break;
             }
 
         }

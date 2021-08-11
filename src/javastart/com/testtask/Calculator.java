@@ -10,6 +10,7 @@ public class Calculator {
     boolean isRoma = false;
     String operation = "";
 
+
     static Map<String, Integer> stringToInt = new HashMap<>();
 
     static {
@@ -38,25 +39,11 @@ public class Calculator {
 
     public String getResult(String line) throws Exception {
         fillNumbersOperationAndTypCalc(line);
-        calculate();
+
 
         return result;
     }
 
-    private void calculate() throws Exception {
-
-        if (isRoma) {
-
-            //  throw new Exception("Чтото идет не так в рома кальке");
-
-            result = convertToRoma(result);
-        }
-    }
-
-    private String convertToRoma(String result) {
-        // конверт
-        return result + "римское число";
-    }
 
     private void fillNumbersOperationAndTypCalc(String line) throws Exception {
 
@@ -64,13 +51,14 @@ public class Calculator {
             throw new Exception("Есть Пробел или число больше 10, так плохо");
         if (!(line.contains("+") || line.contains("-") || line.contains("*") || line.contains("/")))
             throw new Exception("нет оператора, так плохо");
-        isRoma = (line.contains("I") || line.contains("V") || line.contains("X"));
+
         String[] values = line.split("\\+");
         if (values.length == 2) {
-            if (stringToInt.containsKey(values[0]) && stringToInt.containsKey(values[1])) {
+            if (isValidate(values)) {
                 num1 = stringToInt.get(values[0]);
                 num2 = stringToInt.get(values[1]);
-                result = "" + (num1 + num2);
+                result = ConverterRoma.calculate(num1 + num2, isRoma);
+
             } else {
                 throw new Exception("Сложение не сработало");
             }
@@ -79,10 +67,10 @@ public class Calculator {
         } else {
             values = line.split("-");
             if (values.length == 2) {
-                if (stringToInt.containsKey(values[0]) && stringToInt.containsKey(values[1])) {
+                if (isValidate(values)) {
                     num1 = stringToInt.get(values[0]);
                     num2 = stringToInt.get(values[1]);
-                    result = "" + (num1 - num2);
+                    result = ConverterRoma.calculate(num1 - num2, isRoma);
                 } else {
                     throw new Exception("Вычитание не сработало");
                 }
@@ -91,10 +79,10 @@ public class Calculator {
             } else {
                 values = line.split("/");
                 if (values.length == 2) {
-                    if (stringToInt.containsKey(values[0]) && stringToInt.containsKey(values[1])) {
+                    if (isValidate(values)) {
                         num1 = stringToInt.get(values[0]);
                         num2 = stringToInt.get(values[1]);
-                        result = "" + num1 / num2;
+                        result = ConverterRoma.calculate(+num1 / num2, isRoma);
                     } else {
                         throw new Exception("Деление не сработало");
                     }
@@ -104,11 +92,11 @@ public class Calculator {
                     if (values.length == 2) {
                         //Умножение, проверка и заполнение значения
 
-                        if (stringToInt.containsKey(values[0]) && stringToInt.containsKey(values[1])) {
+                        if (isValidate(values)) {
 
                             num1 = stringToInt.get(values[0]);
                             num2 = stringToInt.get(values[1]);
-                            result = "" + num1 * num2;
+                            result = ConverterRoma.calculate(num1 * num2, isRoma);
                         } else {
                             throw new Exception("Умножение не сработало");
                         }
@@ -123,6 +111,20 @@ public class Calculator {
                 }
             }
         }
+
+    }
+
+    private boolean isValidate(String[] values) {
+
+        boolean isRoma1 = (values[0].contains("I") || values[0].contains("V") || values[0].contains("X"));
+        boolean isRoma2 = (values[1].contains("I") || values[1].contains("V") || values[1].contains("X"));
+        if (isRoma1 == isRoma2) {
+            isRoma = isRoma1;
+            return stringToInt.containsKey(values[0]) && stringToInt.containsKey(values[1]);
+        } else {
+            return false;
+        }
+
 
     }
 
