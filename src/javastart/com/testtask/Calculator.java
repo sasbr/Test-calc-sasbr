@@ -8,7 +8,6 @@ public class Calculator {
     int num2;
     String result = "";
     boolean isRoma = false;
-    String operation = "";
 
 
     static Map<String, Integer> stringToInt = new HashMap<>();
@@ -50,7 +49,7 @@ public class Calculator {
         if (line.contains(" ") || line.length() > 9)
             throw new Exception("Есть Пробел или число больше 10, так плохо");
         if (!(line.contains("+") || line.contains("-") || line.contains("*") || line.contains("/")))
-            throw new Exception("нет оператора, так плохо");
+            throw new Exception("нет оператора, - плохо");
 
         String[] values = line.split("\\+");
         if (values.length == 2) {
@@ -62,7 +61,6 @@ public class Calculator {
             } else {
                 throw new Exception("Сложение не сработало");
             }
-            // result = "" + addNumber(num1, num2);
 
         } else {
             values = line.split("-");
@@ -82,7 +80,7 @@ public class Calculator {
                     if (isValidate(values)) {
                         num1 = stringToInt.get(values[0]);
                         num2 = stringToInt.get(values[1]);
-                        result = ConverterRoma.calculate(+num1 / num2, isRoma);
+                        result = ConverterRoma.calculate(num1 / num2, isRoma);
                     } else {
                         throw new Exception("Деление не сработало");
                     }
@@ -115,7 +113,7 @@ public class Calculator {
     }
 
     private boolean isValidate(String[] values) {
-
+        //Проверка на соответствие араб или рим. цифры
         boolean isRoma1 = (values[0].contains("I") || values[0].contains("V") || values[0].contains("X"));
         boolean isRoma2 = (values[1].contains("I") || values[1].contains("V") || values[1].contains("X"));
         if (isRoma1 == isRoma2) {
@@ -128,7 +126,4 @@ public class Calculator {
 
     }
 
-    private int addNumber(int num1, int num2) {
-        return num1 + num2;
-    }
 }
